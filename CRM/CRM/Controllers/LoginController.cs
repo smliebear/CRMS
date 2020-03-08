@@ -42,7 +42,7 @@ namespace CRM.Controllers
             }
             else
             {
-                return new JsonResult(new { code = 0, result = "aaaaaaaa" });
+                return new JsonResult(null);
             }
         }
     }
