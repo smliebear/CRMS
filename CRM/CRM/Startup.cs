@@ -20,7 +20,6 @@ namespace CRM
             _Configuration = configuration;
         }
 
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -37,9 +36,9 @@ namespace CRM
                    .AllowCredentials();
                 });
             });
-            services.AddDbContext<OSMSContext>(options =>
+            services.AddDbContext<CRMContext>(options =>
             {
-                options.UseSqlServer(_Configuration.GetConnectionString("Conn")); 
+                options.UseSqlServer(_Configuration.GetConnectionString("Conn"));
 
             });
 
@@ -51,18 +50,22 @@ namespace CRM
                     Title = "swagg测试",  //标题
                     Description = "前后端接口",  //描述文字
                     TermsOfService = "None",
-                    Contact = new Swashbuckle.AspNetCore.Swagger.Contact { Name = "CRM", Email = "@xxx.com",
-                        Url = "https://localhost:8085" }
+                    Contact = new Swashbuckle.AspNetCore.Swagger.Contact
+                    {
+                        Name = "CRM",
+                        Email = "@xxx.com",
+                        Url = "https://localhost:8085"
+                    }
                 });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 //这个就是刚刚配置的xml文件名
-                c.IncludeXmlComments(xmlPath,true);
+                c.IncludeXmlComments(xmlPath, true);
                 //默认第二个参数是false,是controller的注释
             });
             //设置Swagger Json UI的注释和路径
-          
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,7 +79,13 @@ namespace CRM
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "api/{controller=Login}/{action=Get}/{id?}");
+                    template: "api/{controller=Login}/{action=post}/{id?}");
+                routes.MapRoute(
+                    name: "Home",
+                    template: "api/{controller=Home}/{action=Get}/{id?}");
+                routes.MapRoute(
+                   name: "Major",
+                   template: "api/{controller=Major}/{action=Get}/{id?}");
             });
             //启用中间件服务生成Swagger
             app.UseSwagger();
