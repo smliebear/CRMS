@@ -86,6 +86,9 @@ namespace CRM
                 routes.MapRoute(
                    name: "Major",
                    template: "api/{controller=Major}/{action=Get}/{id?}");
+                routes.MapRoute(
+                  name: "SchoolManage",
+                  template: "api/{controller=SchoolManage}/{action}/{id?}");
             });
             //启用中间件服务生成Swagger
             app.UseSwagger();

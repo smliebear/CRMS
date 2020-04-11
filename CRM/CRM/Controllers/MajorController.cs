@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CRM.Data;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRM.Controllers
 {
+    [Route("api/[Controller]")]
+    [ApiController]
+    [EnableCors("any")]  //跨域
     public class MajorController : Controller
     {
         private readonly CRMContext _crmcontext;
